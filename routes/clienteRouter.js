@@ -3,12 +3,12 @@ const Cliente = require("../model/Cliente");
 const router = require("express").Router();
 
 // POST - Cadastrar cliente
-router.post("/cliente", (req, res) => {
+router.post("/cliente", async (req, res) => {
 
     const { nome, telefone, cpf, placaCarro } = req.body;
 
     if (!nome || !telefone || !cpf || !placaCarro) {
-        res.send("Preencha todos os campos!");
+        res.status(422).json({ message: "Preencha todos os campos!" });
         return;
     }
 
@@ -20,10 +20,9 @@ router.post("/cliente", (req, res) => {
     };
 
     try {
+        await Cliente.create(cliente);
 
-        Cliente.create(cliente);
-
-        res.status(201).json({ message: "Cliente cadastrado com sucesso!" });
+        res.status(200).json({ message: "Cliente cadastrado com sucesso!" });
         return;
     } catch(error) {
         res.status(503).json({ message: "Erro ao cadastrar cliente!" });
