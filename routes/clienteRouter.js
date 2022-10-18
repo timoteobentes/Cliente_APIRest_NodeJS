@@ -31,10 +31,10 @@ router.post("/cliente", async (req, res) => {
 })
 
 // GET - Traz um cliente pelo id
-router.get("/cliente/:filename", async (req, res) => {
-    const file = req.params.filename;
+router.get("/cliente/:nome", async (req, res) => {
+    const nome = req.params.nome;
     try {
-        const cliente = await Cliente.findOne({ filename: file });
+        const cliente = await Cliente.findOne({ nome: nome });
         
         if(!cliente) {
             res.status(422).json({ message: "Cliente não encontrado..." });
@@ -67,8 +67,8 @@ router.get("/consulta/final-placa/:placaCarro", async (req, res) => {
 })
 
 // PUT - atualiza os dados de um cliente pelo id
-router.put("cliente/:filename", async (req, res) => {
-    const file = req.params.filename;
+router.put("cliente/:nome", async (req, res) => {
+    const nomeE = req.params.nome;
 
     const { nome, telefone, cpf, placaCarro } = req.body;
 
@@ -80,7 +80,7 @@ router.put("cliente/:filename", async (req, res) => {
     }
 
     try {
-        const cliente = await Cliente.updateOne({ filename: file });
+        const cliente = await Cliente.updateOne({ nome: nomeE });
         
         if(cliente.matchedCount === 0) {
             res.status(422).json({ message: "Cliente não encontrado..." });
@@ -94,9 +94,9 @@ router.put("cliente/:filename", async (req, res) => {
 })
 
 // DELETE - deleta um cliente pelo id
-router.delete("/cliente/:filename", async (req, res) => {
-    const file = req.params.filename;
-    const cliente = await Cliente.findOne({ filename: file });
+router.delete("/cliente/:nome", async (req, res) => {
+    const nome = req.params.nome;
+    const cliente = await Cliente.findOne({ nome: nome });
         
     if(!cliente) {
         res.status(422).json({ message: "Cliente não encontrado..." });
@@ -104,7 +104,7 @@ router.delete("/cliente/:filename", async (req, res) => {
     }
     
     try {
-        await deleteOne({ filename: file })
+        await deleteOne({ nome: nome })
         res.status(200).json({ message: "Cliente deletado!" });
     } catch(error) {
         res.status(500).json({ erro: error });
