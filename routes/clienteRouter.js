@@ -31,10 +31,10 @@ router.post("/cliente", async (req, res) => {
 })
 
 // GET - Traz um cliente pelo id
-router.get("/cliente/:id", async (req, res) => {
-    const id = req.params.id;
+router.get("/cliente/:filename", async (req, res) => {
+    const file = req.params.filename;
     try {
-        const cliente = await Cliente.findOne({ _id: id });
+        const cliente = await Cliente.findOne({ filename: file });
         
         if(!cliente) {
             res.status(422).json({ message: "Cliente não encontrado..." });
@@ -67,8 +67,8 @@ router.get("/consulta/final-placa/:placaCarro", async (req, res) => {
 })
 
 // PUT - atualiza os dados de um cliente pelo id
-router.put("cliente/:id", async (req, res) => {
-    const id = req.params._id;
+router.put("cliente/:filename", async (req, res) => {
+    const file = req.params.filename;
 
     const { nome, telefone, cpf, placaCarro } = req.body;
 
@@ -80,7 +80,7 @@ router.put("cliente/:id", async (req, res) => {
     }
 
     try {
-        const cliente = await Cliente.updateOne({ _id: id });
+        const cliente = await Cliente.updateOne({ filename: file });
         
         if(cliente.matchedCount === 0) {
             res.status(422).json({ message: "Cliente não encontrado..." });
@@ -94,9 +94,9 @@ router.put("cliente/:id", async (req, res) => {
 })
 
 // DELETE - deleta um cliente pelo id
-router.delete("/cliente/:id", async (req, res) => {
-    const id = req.params._id;
-    const cliente = await Cliente.findOne({ _id: id });
+router.delete("/cliente/:filename", async (req, res) => {
+    const file = req.params.filename;
+    const cliente = await Cliente.findOne({ filename: file });
         
     if(!cliente) {
         res.status(422).json({ message: "Cliente não encontrado..." });
@@ -104,7 +104,7 @@ router.delete("/cliente/:id", async (req, res) => {
     }
     
     try {
-        await deleteOne({ _id: id })
+        await deleteOne({ filename: file })
         res.status(200).json({ message: "Cliente deletado!" });
     } catch(error) {
         res.status(500).json({ erro: error });
