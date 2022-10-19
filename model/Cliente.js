@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const CLiente = mongoose.model("Cliente", {
     nome: String,
-    telefone: Number,
-    cpf: Number,
+    telefone: String,
+    cpf: String,
     placaCarro: String
 })
 
