@@ -6,10 +6,10 @@ router.post("/cliente", async (req, res) => {
 
     const { nome, telefone, cpf, placaCarro } = req.body;
 
-    if (!nome || !telefone || !cpf || !placaCarro) {
-        res.status(422).json({ message: "Preencha todos os campos!" });
-        return;
-    }
+    // if (!nome || !telefone || !cpf || !placaCarro) {
+    //     res.status(422).json({ message: "Preencha todos os campos!" });
+    //     return;
+    // }
 
     const cliente = {
         nome,
@@ -44,10 +44,10 @@ router.get("/cliente", async (req, res) => {
 
 
 // GET - Traz um cliente pelo id
-router.get("/cliente/:cpf", async (req, res) => {
-    const cpf = req.params.cpf;
+router.get("/cliente/:id", async (req, res) => {
+    const id = req.params.id;
     try {
-        const cliente = await Cliente.findOne({ cpf: cpf });
+        const cliente = await Cliente.findOne({ _id: id });
         
         if(!cliente) {
             res.status(422).json({ message: "Cliente não encontrado..." });
