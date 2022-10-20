@@ -5,8 +5,8 @@ const app = express();
 
 conexao();
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //rotas
 

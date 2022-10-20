@@ -6,11 +6,11 @@ async function conexao() {
             useNewUrlParser: true,
             useUnifiedTopology: true
         }
-        await mongoose.connect(process.env.MONGODOB, conexaoParams)
+        await mongoose.connect(process.env.MONGODOB, conexaoParams);
         console.log("Conectado ao BD");
     } catch(error) {
-        console.log(error)
-        console.log("Erro ao conectar ao BD")
+        console.log(error);
+        console.log("Erro ao conectar ao BD...");
     }
 }
 
